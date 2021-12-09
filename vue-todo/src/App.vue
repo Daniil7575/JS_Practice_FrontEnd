@@ -1,65 +1,59 @@
 <template>
   <div id="app">
-    <div class="nav">
+    <component :is="layout">
+       <router-view/>
+    </component>
+     
+    </div>
+    <!-- <img alt="Vue logo" src="./assets/lol.png">
+    <ul>
       <router-link to="/">
         Home
       </router-link>
-      <router-link to="/infopage">
+      <router-link to="/info">
         Info
       </router-link>
-    </div>
-    
-    <img alt="Vue logo" src="./assets/aaaaa.jpg">
-    <router-view/>
-    <info-page msg="Welcome to Your Vue.js App"/>
-  </div>
+    </ul>
+    <router-view />
+    <InfoPage msg="Welcome to my About page"/> -->
 </template>
 
 <script>
+import MainLayout from '@/layout/MainLayout.vue'
+import AuthLayout from '@/layout/AuthLayout.vue'
+// import InfoPage from './components/pages/InfoPage.vue'
 
-//import InfoPage from './components/pages/InfoPage.vue'
 
 export default {
-  name: 'App'
+  name: 'App',
+  components: {
+    MainLayout, AuthLayout
+  },
+
+  computed:{
+    layout() {
+      return this.$route.meta?.layout || "main-layout"
+    }
+  }
 }
 </script>
 
 <style>
+/* img
+{
+  box-shadow: 5px 2px 2px rgba(0, 0, 0, 0.459);
+}
 #app {
-  margin: auto;
-  background-color: #696969;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: rgb(255, 255, 255);
-  margin-top: 60px;
-  max-height: 500px;
-  max-width: 730px;
-  align-items: center;
-  border-radius: 25px;
+  color: #ff0fa3;
+  margin-top: 30px;
 }
 
 ul {
   list-style-type: none;;
   padding: 0;
-  color: rgb(255, 255, 255);
-}
-
-.base-card {
-  box-shadow: 5px 2px 2px rgba(0, 0, 0, 0.459);
-  padding: 25px; 
-  border-radius: 25px; 
-  max-height: 900px;
-  background-color: #113961;
-  height: 325px;
-  width: 310px;
-  margin-top: 10px;
-  max-width: 500px;
-}
-
-img{
-  border-radius: 25px;
-  box-shadow: 5px 2px 2px rgba(0, 0, 0, 0.459);
-}
+} */
 </style>

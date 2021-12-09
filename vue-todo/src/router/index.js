@@ -6,19 +6,39 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'home',
     meta: {
-      title: 'Список дел'
+      title: 'Список дел',
+      layout: "main-layout"
     },
-    component: () => import('@/App.vue')
+    component: () => import('@/pages/HomePage.vue')
   },
   {
-    path: '/infopage',
-    name: 'InfoPage',
+    path: '/info',
+    name: 'info',
     meta: {
-      title: 'Информация'
+      title: 'Информация',
+      layout: "main-layout"
     },
-    component: () => import('@/components/pages/InfoPage.vue')
+    component: () => import('@/pages/InfoPage.vue')
+  },
+  {
+    path: '/login',
+    name: 'login',
+    meta: {
+      title: 'Аутентификация',
+      layout: "auth-layout"
+    },
+    component: () => import('@/pages/LoginPage.vue')
+  },
+  {
+    path: '/registration',
+    name: 'registration',
+    meta: {
+      title: 'Регистрация',
+      layout: "auth-layout"
+    },
+    component: () => import('@/pages/RegistrationPage')
   }
 ]
 
@@ -26,6 +46,16 @@ const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  const {accessToken} = localStorage;
+  if (accessToken || to.name === "login" || to.name === "registration") {
+    next();
+  }
+  else {
+    next("/login")
+  }
 })
 
 export default router
